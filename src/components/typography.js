@@ -18,10 +18,6 @@ const StyledP = styled.p`
     font-size: 12px;
   }
   
-  &.somi_small {
-    font-size: 14px;
-  }
-  
   &.large {
     font-size: 16px;
   }
@@ -56,7 +52,7 @@ const StyledP = styled.p`
   }
 
   &.gray {
-    color: ${Colors.GRAY_COLOR_3};
+    color: ${Colors.GRAY_COLOR_2};
   }
   
   &.lightGray {

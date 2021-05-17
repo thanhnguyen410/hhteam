@@ -1,198 +1,34 @@
 import React, { Component } from 'react'
-import ReactDOM from 'react-dom'
 import styled from 'styled-components'
 import { withRouter } from 'react-router-dom'
-import classnames from 'classnames'
-import { Menu } from 'antd'
-import Clickable from '@/components/clickable'
-import { Colors, Images } from '@/theme'
-import { NAVIGATIONS } from '@/constants/common'
+import { Menu, Layout } from 'antd'
+import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons'
+import { Images, Colors } from '@/theme'
 
-const Box = styled.div`
-  position: absolute;
-  left: 0;
-  top: 0;
-  background: ${Colors.PRIMARY};
-  height: 100%;
-  width: 125px;
-  z-index: 999;
-  transition: all 300ms ease-out;
+const { Sider } = Layout
 
-  &.open {
-    width: 245px;
-    transition: all 200ms ease-out;
-    z-index: 999999999;
-    .ant-menu {
-      .nav-item {
-        display: flex;
-        flex-flow: row nowrap;
-        align-items: center;
-        padding: 10px;
-        width: 168px;
-        border-radius: 12px;
-        transition: all 300ms ease-in;
-        span {
-          display: block !important;
-          font-weight: bold;
-        }
-        img {
-          margin-right: 5px;
-        }
-        &:hover {
-          width: 168px !important;
-          background-color: #ffffff29;
-          justify-content: flex-start !important;
-          /* opacity: 0.8; */
-          /* img {
-            filter: brightness(1) !important;
-          } */
-          span {
-            color: #fff;
-          }
-        }
-      }
-      .is-active {
-        .nav-item {
-          width: 168px !important;
-          background-color: ${Colors.WHITE1};
-          justify-content: flex-start !important;
-          img {
-            filter: brightness(1) !important;
-          }
-          span {
-            color: ${Colors.PRIMARY};
-          }
-        }
-      }
-    }
-  }
+const { SubMenu } = Menu
 
-  .ant-menu {
-    margin-right: 0;
-    width: 100%;
-    .ant-menu-item {
-      min-width: 100%;
-      background: ${Colors.PRIMARY};
-      padding: 10px 0 !important;
-      margin: 0;
-      height: 90px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+const LayoutStyle = styled(Layout)`
+  background-color: #eee;
+  .ant-layout-sider {
+    border-right: 1px solid #eee;
+    .ant-menu-item-selected {
+      background-color: ${Colors.PRIMARY};
+      color: white;
       &:after {
-        content: none;
-      }
-      .nav-item {
-        transition: all 300ms ease-out;
-        img {
-          filter: brightness(0) invert(1);
-        }
-        span {
-          color: white;
-          display: none;
-        }
-        &:hover {
-          background: #ffffff29;
-          width: 60px;
-          height: 60px;
-          text-align: center;
-          border-radius: 12px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          /* transition: all 2000ms ease-in; */
-          /* img { */
-            /* width: 27px; */
-            /* filter: brightness(1) !important; */
-          /* } */
-        }
-      }
-
-      .staff-icon {
-        width: 26px;
-        height: 26px;
-      }
-      .record-icon {
-        margin-left: -2px;
-      }
-    }
-
-    .is-active {
-      .nav-item {
-        background-color: ${Colors.WHITE1};
-        width: 60px;
-        height: 60px;
-        text-align: center;
-        border-radius: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        img {
-          filter: brightness(1) !important;
-        }
-        span {
-          color: ${Colors.PRIMARY};
-        }
+        border-right: 3px solid ${Colors.PRIMARY};
       }
     }
   }
-
-  .ant-menu-vertical {
-    border-right: none !important;
-  }
-
-  .bar-control {
-    padding: 10px 0 10px 30px;
-    .control {
-      width: 60px;
-      height: 60px;
-      padding-left: 15px;
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-      &:hover {
-        background-color: #ffffff29;
-        text-align: center;
-        border-radius: 12px;
-        transition: all 300ms ease-out;
-        img {
-          filter: brightness(1) !important;
-        }
-      }
-      img {
-        width: 30px;
-        height: 30px;
-      }
-    }
-  }
-
-  .bar-control-open {
-    .control {
-      transition: all 300ms ease-in;
-    }
-  }
-
-  .over-page {
-    background: ${Colors.PRIMARY};
-    opacity: 0.2;
-    position: fixed;
-    top: 0;
-    left: 245px;
-    bottom: 0;
-    right: 0;
-    z-index: 1;
-  }
-
-  /* .logo-bottom-sidebar {
+  .logo {
+    padding: 20px 0;
     display: flex;
     justify-content: center;
-    .img-1 {
-      width: 70px;
+    img {
+      width: 150px;
     }
-    .img-2 {
-      width: 185px;
-    }
-  } */
+  }
 `
 
 @withRouter
@@ -202,72 +38,50 @@ class MenuBar extends Component {
   constructor(props) {
     super(props)
 
-    this.state = {
-      collapsed: true
-    }
-
-    this.wrapperRef = React.createRef()
-  }
-
-  componentDidMount() {
-    ReactDOM.findDOMNode(this).addEventListener('mousedown', this._handleClickOutSideBarMenu)
-  }
-
-  componentWillUnmount() {
-    ReactDOM.findDOMNode(this).removeEventListener('mousedown', this._handleClickOutSideBarMenu)
-  }
-
-  _handleClickOutSideBarMenu = (event) => {
-    if (this.wrapperRef && !this.wrapperRef.current.contains(event.target)) {
-      this.setState({
-        collapsed: true
-      })
-    }
-  }
-
-  toggleCollapsed = () => {
-    this.setState((state) => ({
-      collapsed: !state.collapsed
-    }))
+    this.state = {}
   }
 
   render() {
-    const { collapsed } = this.state
-    const { history } = this.props
-
     return (
-      <Box className={classnames({ open: !collapsed })}>
-        <div
-          className={`bar-control ${!collapsed ? 'bar-control-open' : ''}`}
-          onClick={this.toggleCollapsed}
-          role="presentation"
-        >
-          <div
-            className="control"
-            ref={this.wrapperRef}
-          >
-            {collapsed ? <img src={Images.MENU_WHITE_ICON} alt="" /> : <img src={Images.CLOSE_WHITE_ICON} alt="" />}
+      <LayoutStyle style={{ minHeight: '100vh' }}>
+        <Sider theme="light" trigger={null} collapsible collapsed={false}>
+          <div className="logo">
+            <img src={Images.LOGO_SMALL_2} alt="logo-shop" />
           </div>
-        </div>
-        <span className={collapsed ? '' : 'over-page'} />
-        <Menu
-          mode="inline"
-          theme="light"
-          inlineCollapsed={collapsed}
-        >
-          {NAVIGATIONS.map((item) => (
-            <Menu.Item key={item.id} className={history.location.pathname === item.path ? 'is-active' : ''}>
-              <Clickable className="nav-item" onClick={() => this.props.history.push(item.path)}>
-                <img src={Images[item.icon]} alt="" className={item.class} />
-                <span>{item.name}</span>
-              </Clickable>
-            </Menu.Item>
-          ))}
-        </Menu>
-        {/* <Clickable className="logo-bottom-sidebar">
-          <img src={Images.LOGO_SHOP_FULL} alt="" className="img-1" />
-        </Clickable> */}
-      </Box>
+          <Menu
+            onClick={this.handleClick}
+            defaultSelectedKeys={['1']}
+            defaultOpenKeys={['sub1']}
+            mode="inline"
+            theme="light"
+          >
+            <SubMenu key="sub1" icon={<MailOutlined />} title="Navigation One">
+              <Menu.ItemGroup key="g1" title="Item 1">
+                <Menu.Item key="1">Option 1</Menu.Item>
+                <Menu.Item key="2">Option 2</Menu.Item>
+              </Menu.ItemGroup>
+              <Menu.ItemGroup key="g2" title="Item 2">
+                <Menu.Item key="3">Option 3</Menu.Item>
+                <Menu.Item key="4">Option 4</Menu.Item>
+              </Menu.ItemGroup>
+            </SubMenu>
+            <SubMenu key="sub2" icon={<AppstoreOutlined />} title="Navigation Two">
+              <Menu.Item key="5">Option 5</Menu.Item>
+              <Menu.Item key="6">Option 6</Menu.Item>
+              <SubMenu key="sub3" title="Submenu">
+                <Menu.Item key="7">Option 7</Menu.Item>
+                <Menu.Item key="8">Option 8</Menu.Item>
+              </SubMenu>
+            </SubMenu>
+            <SubMenu key="sub4" icon={<SettingOutlined />} title="Navigation Three">
+              <Menu.Item key="9">Option 9</Menu.Item>
+              <Menu.Item key="10">Option 10</Menu.Item>
+              <Menu.Item key="11">Option 11</Menu.Item>
+              <Menu.Item key="12">Option 12</Menu.Item>
+            </SubMenu>
+          </Menu>
+        </Sider>
+      </LayoutStyle>
     )
   }
 }

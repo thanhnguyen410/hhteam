@@ -1,4 +1,5 @@
 import moment from 'moment'
+
 export default class Format {
   static numeric = (number) => (number || 0).toLocaleString(
     undefined, { minimumFractionDigits: 0 }

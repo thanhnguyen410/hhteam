@@ -40,9 +40,9 @@ module.exports = (env) => {
   if (!IS_DEV) {
     plugins = plugins.concat([
       new WebpackPwaManifest({
-        name: 'Matsuekufc',
-        short_name: 'Matsuekufc',
-        description: 'Matsuekufc',
+        name: 'hhTeam',
+        short_name: 'hhTeam',
+        description: 'hhTeam',
         background_color: '#069',
         theme_color: '#069',
         orientation: 'portrait',

@@ -13,13 +13,13 @@ const StyledButton = styled.button
   background-color: ${(props) => props.color};
   font-size: 16px;
   padding: 13px 26px;
-  background-color: ${(props) => props.color};
+  background-color: ${(props) => props.color || Colors.GRAY_COLOR_2};
   height: 50px;
   transition: opacity 0.2s;
-  // box-shadow: 0 2px 4px 0 rgba(142, 142, 142, 0.2);
+  box-shadow: 0 2px 4px 0 rgba(142, 142, 142, 0.2);
   border: solid 1px #e0e0e0;
   outline: none;
-  color: ${(props) => (props.textcolor || (Colors.isLight(props.color) ? 'white' : Colors.GRAY1))} !important;
+  color: ${(props) => (props.textColor || 'white')} !important;
   border-radius: 12px;
   display: flex;
   justify-content: center;

@@ -1,28 +1,32 @@
-import React from 'react'
+import React, { Component } from 'react'
 // import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import classNames from 'classnames'
+import { withRouter } from 'react-router-dom'
+import { Layout } from 'antd'
 import { Colors } from '@/theme'
 
-const Div = styled.div`
-  max-width: 100%;
-  box-sizing: border-box;
-  width: 100%;
-  height: 80px;
-  background: ${Colors.GRAY_BACKGROUND};
-  border-bottom: 2px solid ${Colors.PRIMARY};
-  padding: 0 20px;
-  display: flex;
-  align-content: center;
+const { Header } = Layout
+
+const HeaderStyle = styled(Header)`
+  background-color: ${Colors.WHITE1};
+  border-bottom: 1px solid ${Colors.GRAY_COLOR_1};
+  box-shadow: 0 2px 4px 0 rgba(142, 142, 142, 0.2);
 `
+@withRouter
+class HeaderPage extends Component {
+  static propTypes = {}
 
-const Header = ({ children, className }) => {
-  className = classNames(className, 'header-page')
+  constructor(props) {
+    super(props)
 
-  return (
-    <Div className={className}>{ children }</Div>
-  )
+    this.state = {}
+  }
+
+  render() {
+    return (
+      <HeaderStyle className="site-layout-background" style={{ padding: 0 }} />
+    )
+  }
 }
-Header.propTypes = {}
 
-export default Header
+export default HeaderPage

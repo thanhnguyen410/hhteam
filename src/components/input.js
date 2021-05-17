@@ -14,8 +14,8 @@ const StyledInput = styled(AntInput)`
   border-radius: 12px;
   outline: none;
   padding: 15px;
-  border: solid 1px #BDBDBD;
-  /* box-shadow: 0 2px 4px 0 rgba(142, 142, 142, 0.2)!important; */
+  border: solid 1px ${Colors.GRAY_COLOR_2};
+  box-shadow: 0 2px 4px 0 rgba(142, 142, 142, 0.2);
   transition: border-color 0.2s;
   background-color: ${Colors.GRAY3};
   -webkit-appearance: none;

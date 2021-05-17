@@ -12,6 +12,7 @@ const Div = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding: 15px;
 `
 
 export default class extends Component {

@@ -1,6 +1,5 @@
 import lodash from 'lodash'
 import Configs from '@/configs'
-import { STATUS_OF_BOOKING } from '@/constants/common'
 
 const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
 

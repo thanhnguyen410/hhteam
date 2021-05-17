@@ -2,12 +2,12 @@ import { Component } from 'react'
 import PropTypes from 'prop-types'
 import setLocale from 'yup/lib/setLocale'
 import moment from 'moment'
-import { inject } from 'mobx-react'
+import { inject, observer } from 'mobx-react'
 import 'moment/locale/ja'
 
 import Request from '@/utils/request'
 import Storage from '@/utils/storage'
-import { routingStore } from '@/store'
+// import { routingStore } from '@/store'
 
 moment.locale('ja')
 setLocale({
@@ -20,13 +20,12 @@ setLocale({
 })
 
 @inject((stores) => ({
-  authStore: stores.auth,
-  uiStore: stores.ui
+  authStore: stores.auth
 }))
+@observer
 class Init extends Component {
   static propTypes = {
-    authStore: PropTypes.object,
-    uiStore: PropTypes.object
+    authStore: PropTypes.object
   }
 
   state = {
@@ -34,7 +33,7 @@ class Init extends Component {
   }
 
   async componentDidMount() {
-    const { authStore, uiStore } = this.props
+    const { authStore } = this.props
 
     const token = Storage.get('ACCESS_TOKEN')
 
@@ -42,8 +41,8 @@ class Init extends Component {
       Request.setAccessToken(token)
     }
 
-    if (token) {
-      const { success, data } = await authStore.getInitialData()
+    if (token === 'preCheck') {
+      await authStore.getInitialData()
     }
 
     this.setState({ inited: true })

@@ -36,7 +36,7 @@ const StyledDiv = styled.div`
 
 const Footer = () => (
   <StyledDiv>
-    <Typography className="__footer-description-2" size="small">(C)MATSUEKUFC INC. ALL RIGHTS RESERVED.</Typography>
+    <Typography className="__footer-description-2" size="small">(C)HANH HOA INC. ALL RIGHTS RESERVED.</Typography>
   </StyledDiv>
 )
 

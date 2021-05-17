@@ -6,6 +6,8 @@ import { inject, observer } from 'mobx-react'
 import Storage from '@/utils/storage'
 import Loading from '@/components/loading'
 import Page from '@/components/page'
+import Header from '@/components/header'
+import Footer from '@/components/footer'
 import MenuBar from './menu-bar'
 
 const Login = lazy(() => import('@/pages/account/login-page'))
@@ -19,15 +21,9 @@ const VerticalBox = styled.div`
 `
 
 const HorizontalBox = styled.div`
-  flex: 1;
   display: flex;
   min-height: 0;
   position: relative;
-  padding-left: 125px;
-
-  &.not-sidebar {
-    padding-left: 0 !important;
-  }
 `
 
 const PrivateRoute = ({ condition, redirect, ...props }) => {
@@ -55,15 +51,17 @@ class Routes extends Component {
   _renderLazyComponent = (LazyComponent, params) => (props) => <LazyComponent {...props} {...params} />
 
   _renderPrivateRoutes = () => (
-    <HorizontalBox className={this.props.uiStore.isOpenSideBar ? '' : 'not-sidebar'}>
-      {this.props.uiStore.isOpenSideBar && <MenuBar />}
+    <HorizontalBox>
+      <MenuBar />
       <VerticalBox>
+        <Header />
         <Suspense fallback={<Page sidebar><Loading /></Page>}>
           <Switch>
             <Route exact path="/" component={this._renderLazyComponent(Home)} />
             <Redirect to="/not-found" />
           </Switch>
         </Suspense>
+        <Footer />
       </VerticalBox>
     </HorizontalBox>
   )

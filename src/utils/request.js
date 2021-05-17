@@ -1,4 +1,5 @@
 import lodash from 'lodash'
+
 let accessToken = null
 let controller = null
 

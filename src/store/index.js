@@ -6,6 +6,7 @@ import { Router } from 'react-router-dom'
 
 import auth from './auth'
 import assets from './assets'
+import ui from './ui'
 
 const browserHistory = createBrowserHistory()
 export const routingStore = new RouterStore()
@@ -14,7 +15,8 @@ const history = syncHistoryWithStore(browserHistory, routingStore)
 const stores = {
   routing: routingStore,
   auth,
-  assets
+  assets,
+  ui
 }
 
 export default ({ children }) => (
