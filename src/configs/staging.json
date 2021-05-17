@@ -1,0 +1,7 @@
+{
+  "MAIN_PAGE_URL": "https://hh-team.cloudfront.net/",
+  "API_URL": "https://api.hh-team.com",
+  "PUBLIC_PATH": "/",
+  "BASE_NAME": "/",
+  "USER_PAGE_URL": "https://hh-team.cloudfront.net"
+}
